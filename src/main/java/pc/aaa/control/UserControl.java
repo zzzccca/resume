@@ -20,7 +20,7 @@ import java.util.Map;
  */
 @RestController
 @CrossOrigin(origins = {}, methods = {RequestMethod.GET, RequestMethod.POST, RequestMethod.OPTIONS})
-public class UserContrlo {
+public class UserControl {
 
     @Autowired
     private UserService userService;
@@ -37,10 +37,12 @@ public class UserContrlo {
 
         String a =(String) this.weixinidService.decodeUserInfo(encryptedData,iv,code);
         JSONObject userInfoJSON = JSONObject.fromObject(a);
-        if (this.userService.openid(userInfoJSON.get("openId").toString())!=null){
+
+        User u=this.userService.openid(userInfoJSON.get("openId").toString());
+        if (u!=null){
             Map map =new HashMap();
             map.put("errorcode",'0');
-            map.put("errorinfo",userInfoJSON.get("openId").toString());
+            map.put("errorinfo",u.getId());
             return map;
         }else {
             User user = new User();
@@ -58,7 +60,7 @@ public class UserContrlo {
         }
         Map map =new HashMap();
         map.put("errorcode",'0');
-        map.put("errorinfo",userInfoJSON.get("openId").toString());
+        map.put("errorinfo",u.getId());
         return map;
     }
 }
