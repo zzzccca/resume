@@ -18,7 +18,7 @@ public class Resume extends BaseEntity implements Serializable{
     private String userid;//用户id
     private String name;//姓名
     private String tel;//电话
-    private String sex;//性别
+    private String gender;//性别
     private String hometown;//籍贯
     private String birthday;//出生日期
     private String email;//邮箱
@@ -29,6 +29,8 @@ public class Resume extends BaseEntity implements Serializable{
     private String coures;//专业课程
     private String experience;//工作经历
     private String template;//简历模板
+    private String portraiturl;//头像
+    private String templeteimgurl;
 
     public String getTemplate() {
         return template;
@@ -62,12 +64,12 @@ public class Resume extends BaseEntity implements Serializable{
         this.tel = tel;
     }
 
-    public String getSex() {
-        return sex;
+    public String getGender() {
+        return gender;
     }
 
-    public void setSex(String sex) {
-        this.sex = sex;
+    public void setGender(String gender) {
+        this.gender = gender;
     }
 
     public String getHometown() {

@@ -22,14 +22,14 @@ public class ResumeControl {
     private ResumeService resumeService;
 
     @RequestMapping("/resume/add")
-    public ErrorCode resumeadd(String userid,String name, String tel, String sex, String hometown,
+    public ErrorCode resumeadd(String userid,String name, String tel, String gender, String hometown,
                             String birthday, String email, String education, String major, String school,
                             String occupation, String coures, String experience, String template){
         Resume resume=new Resume();
         resume.setUserid(userid);
         resume.setName(name);
         resume.setTel(tel);
-        resume.setSex(sex);
+        resume.setGender(gender);
         resume.setHometown(hometown);
         resume.setBirthday(birthday);
         resume.setEmail(email);
