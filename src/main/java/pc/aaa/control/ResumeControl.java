@@ -49,6 +49,9 @@ public class ResumeControl {
         return this.resumeService.userall(userid);
     }
 
+    @RequestMapping("/resume/resumeone")
+    public Resume resumeone(String resumeid){return this.resumeService.userresume(resumeid);}
+
     @RequestMapping("/resume/del")
     public ErrorCode resumedel(String resumeid){
         this.resumeService.resumedel(resumeid);

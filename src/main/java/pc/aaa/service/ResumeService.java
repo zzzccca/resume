@@ -21,8 +21,9 @@ public class ResumeService {
     }
 
     public List<Resume> userall(String userid){
-        return this.resumeRepository.findByUserid(userid);
+        return this.resumeRepository.findByUseridOrderByCreatetimeDesc(userid);
     }
+
 
     public Resume userresume(String id){
         return this.resumeRepository.findById(id);

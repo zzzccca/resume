@@ -6,9 +6,10 @@ import org.apache.poi.hwpf.usermodel.Range;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.util.ResourceUtils;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import pc.aaa.domain.Resume;
-import pc.aaa.domain.enums.ErrorCode;
 import pc.aaa.service.ResumeService;
 
 import javax.servlet.http.HttpServletResponse;
@@ -20,6 +21,7 @@ import java.util.Map;
  * Created by wu on 17-6-13.
  */
 @Controller
+@CrossOrigin(origins = {}, methods = {RequestMethod.GET, RequestMethod.POST, RequestMethod.OPTIONS})
 public class WordControl{
 
     @Autowired

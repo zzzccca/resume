@@ -12,7 +12,7 @@ import java.util.List;
 @Repository
 public interface ResumeRepository extends CrudRepository<Resume,String>{
 
-    List<Resume> findByUserid(String userid);
+    List<Resume> findByUseridOrderByCreatetimeDesc(String userid);
 
     Resume findById(String id);
 }
