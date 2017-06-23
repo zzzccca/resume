@@ -31,6 +31,43 @@ public class Resume extends BaseEntity implements Serializable{
     private String template;//简历模板
     private String portraiturl;//头像
     private String templeteimgurl;//模板图片
+    private String qualification;//学历
+    private String experiencetime;//工作经验
+    private String interest;//兴趣爱好
+    private String introduce;//个人评价
+
+    public String getQualification() {
+        return qualification;
+    }
+
+    public void setQualification(String qualification) {
+        this.qualification = qualification;
+    }
+
+    public String getExperiencetime() {
+        return experiencetime;
+    }
+
+    public void setExperiencetime(String experiencetime) {
+        this.experiencetime = experiencetime;
+    }
+
+    public String getInterest() {
+        return interest;
+    }
+
+    public void setInterest(String interest) {
+        this.interest = interest;
+    }
+
+    public String getIntroduce() {
+        return introduce;
+    }
+
+    public void setIntroduce(String introduce) {
+        this.introduce = introduce;
+    }
+
 
     public String getPortraiturl() {
         return portraiturl;
