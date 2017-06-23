@@ -24,7 +24,7 @@ public class ResumeControl {
     @RequestMapping("/resume/add")
     public ErrorCode resumeadd(String userid,String name, String tel, String gender, String hometown,
                             String birthday, String email, String education, String major, String school,
-                            String occupation, String coures, String experience, String template){
+                            String occupation, String coures, String experience, String template,String portraiturl,String templeteimgurl){
         Resume resume=new Resume();
         resume.setUserid(userid);
         resume.setName(name);
@@ -40,6 +40,8 @@ public class ResumeControl {
         resume.setCoures(coures);
         resume.setExperience(experience);
         resume.setTemplate(template);
+        resume.setPortraiturl(portraiturl);
+        resume.setTempleteimgurl(templeteimgurl);
         this.resumeService.resumeadd(resume);
         return ErrorCode.SUCCESS;
     }
