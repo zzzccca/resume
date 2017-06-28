@@ -51,6 +51,17 @@ public class ResumeControl {
         return ErrorCode.SUCCESS;
     }
 
+    @RequestMapping("/resume/update")
+    public ErrorCode resumeupdate(String resumeid,String name, String tel, String gender, String hometown,
+                               String birthday, String email, String education, String major, String school,
+                               String occupation, String coures, String experience, String template,String portraiturl,String templeteimgurl,String qualification,
+                               String experiencetime,String interest,String introduce){
+
+        this.resumeService.resumeupdate(resumeid,name,tel, gender, hometown,birthday, email, education, major, school,
+                occupation, coures, experience, template,portraiturl,templeteimgurl,qualification, experiencetime,interest,introduce);
+        return ErrorCode.SUCCESS;
+    }
+
     @RequestMapping("/resume/userall")
     public List<Resume> userall(String userid){
         return this.resumeService.userall(userid);

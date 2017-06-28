@@ -20,6 +20,33 @@ public class ResumeService {
         return this.resumeRepository.save(resume);
     }
 
+    public Resume resumeupdate(String resumeid,String name, String tel, String gender, String hometown,
+                               String birthday, String email, String education, String major, String school,
+                               String occupation, String coures, String experience, String template,String portraiturl,String templeteimgurl,String qualification,
+                               String experiencetime,String interest,String introduce){
+        Resume a = this.resumeRepository.findById(resumeid);
+        a.setName(name);
+        a.setTel(tel);
+        a.setGender(gender);
+        a.setHometown(hometown);
+        a.setBirthday(birthday);
+        a.setEmail(email);
+        a.setEducation(education);
+        a.setMajor(major);
+        a.setSchool(school);
+        a.setOccupation(occupation);
+        a.setCoures(coures);
+        a.setExperience(experience);
+        a.setTemplate(template);
+        a.setPortraiturl(portraiturl);
+        a.setTempleteimgurl(templeteimgurl);
+        a.setQualification(qualification);
+        a.setExperiencetime(experiencetime);
+        a.setInterest(interest);
+        a.setIntroduce(introduce);
+        return resumeRepository.save(a);
+    }
+
     public List<Resume> userall(String userid){
         return this.resumeRepository.findByUseridOrderByCreatetimeDesc(userid);
     }

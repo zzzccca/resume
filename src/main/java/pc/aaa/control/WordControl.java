@@ -41,7 +41,7 @@ public class WordControl{
         Map<String, String> datas = new HashMap<String, String>();
         datas.put("name", resume.getName());
         datas.put("tel", resume.getTel());
-        datas.put("sex",resume.getGender());
+        datas.put("gender",resume.getGender());
         datas.put("hometown", resume.getHometown());
         datas.put("birthday",resume.getBirthday());
         datas.put("email",resume.getEmail());
