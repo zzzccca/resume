@@ -19,6 +19,9 @@ import java.util.List;
 public class ResumeControl {
 
     @Autowired
+    private PdfControl pdfControl;
+
+    @Autowired
     private ResumeService resumeService;
 
     @RequestMapping("/resume/add")
@@ -47,7 +50,12 @@ public class ResumeControl {
         resume.setExperiencetime(experiencetime);
         resume.setInterest(interest);
         resume.setIntroduce(introduce);
-        this.resumeService.resumeadd(resume);
+        String resumeid=this.resumeService.resumeadd(resume).getId();
+        try {
+        pdfControl.testExportWord2(resumeid);
+        }catch (Exception e){
+            System.err.println(e);
+        }
         return ErrorCode.SUCCESS;
     }
 

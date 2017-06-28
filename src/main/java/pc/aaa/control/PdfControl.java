@@ -46,7 +46,7 @@ public class PdfControl {
     private ResumeRepository resumeRepository;
 
     @RequestMapping("/resume/pdf")
-    public void testExportWord2(String resumeid) throws Exception , IOException {
+    public void testExportWord2(String resumeid) throws Exception {
 
         Resume resume =this.resumeService.userresume(resumeid);
 
@@ -109,7 +109,6 @@ public class PdfControl {
                 //ignore
             }
         }
-        System.out.println("upload success");
     }
 
 }
