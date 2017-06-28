@@ -7,6 +7,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 import pc.aaa.domain.Resume;
 import pc.aaa.domain.enums.ErrorCode;
+import pc.aaa.service.PdfService;
 import pc.aaa.service.ResumeService;
 
 import java.util.List;
@@ -19,7 +20,7 @@ import java.util.List;
 public class ResumeControl {
 
     @Autowired
-    private PdfControl pdfControl;
+    private PdfService pdfService;
 
     @Autowired
     private ResumeService resumeService;
@@ -52,7 +53,7 @@ public class ResumeControl {
         resume.setIntroduce(introduce);
         String resumeid=this.resumeService.resumeadd(resume).getId();
         try {
-        pdfControl.testExportWord2(resumeid);
+        pdfService.testExportWord2(resumeid);
         }catch (Exception e){
             System.err.println(e);
         }

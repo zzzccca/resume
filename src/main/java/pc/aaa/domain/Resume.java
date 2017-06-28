@@ -35,15 +35,6 @@ public class Resume extends BaseEntity implements Serializable{
     private String experiencetime;//工作经验
     private String interest;//兴趣爱好
     private String introduce;//个人评价
-    private String qiniuname;//简历在七牛云上的key
-
-    public String getQiniuname() {
-        return qiniuname;
-    }
-
-    public void setQiniuname(String qiniuname) {
-        this.qiniuname = qiniuname;
-    }
 
 
     public String getQualification() {
