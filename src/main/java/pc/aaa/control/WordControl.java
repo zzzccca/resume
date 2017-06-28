@@ -45,11 +45,10 @@ public class WordControl{
         datas.put("hometown", resume.getHometown());
         datas.put("birthday",resume.getBirthday());
         datas.put("email",resume.getEmail());
-        datas.put("education",resume.getEducation());
+        datas.put("qualification",resume.getQualification());
         datas.put("major",resume.getMajor());
         datas.put("school",resume.getSchool());
         datas.put("occupation",resume.getOccupation());
-        datas.put("coures",resume.getCoures());
         if (resume.getExperience()!=null) {
             datas.put("experience", resume.getExperience());
         }else {

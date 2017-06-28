@@ -27,8 +27,8 @@ public class ResumeControl {
 
     @RequestMapping("/resume/add")
     public ErrorCode resumeadd(String userid,String name, String tel, String gender, String hometown,
-                            String birthday, String email, String education, String major, String school,
-                            String occupation, String coures, String experience, String template,String portraiturl,String templeteimgurl,String qualification,
+                            String birthday, String email, String major, String school,
+                            String occupation, String experience, String template,String portraiturl,String templeteimgurl,String qualification,
                                String experiencetime,String interest,String introduce){
         Resume resume=new Resume();
         resume.setUserid(userid);
@@ -38,11 +38,9 @@ public class ResumeControl {
         resume.setHometown(hometown);
         resume.setBirthday(birthday);
         resume.setEmail(email);
-        resume.setEducation(education);
         resume.setMajor(major);
         resume.setSchool(school);
         resume.setOccupation(occupation);
-        resume.setCoures(coures);
         resume.setExperience(experience);
         resume.setTemplate(template);
         resume.setPortraiturl(portraiturl);
@@ -62,12 +60,12 @@ public class ResumeControl {
 
     @RequestMapping("/resume/update")
     public ErrorCode resumeupdate(String resumeid,String name, String tel, String gender, String hometown,
-                               String birthday, String email, String education, String major, String school,
-                               String occupation, String coures, String experience, String template,String portraiturl,String templeteimgurl,String qualification,
+                               String birthday, String email, String major, String school,
+                               String occupation, String experience, String template,String portraiturl,String templeteimgurl,String qualification,
                                String experiencetime,String interest,String introduce){
 
-        this.resumeService.resumeupdate(resumeid,name,tel, gender, hometown,birthday, email, education, major, school,
-                occupation, coures, experience, template,portraiturl,templeteimgurl,qualification, experiencetime,interest,introduce);
+        this.resumeService.resumeupdate(resumeid,name,tel, gender, hometown,birthday, email, major, school,
+                occupation, experience, template,portraiturl,templeteimgurl,qualification, experiencetime,interest,introduce);
         return ErrorCode.SUCCESS;
     }
 

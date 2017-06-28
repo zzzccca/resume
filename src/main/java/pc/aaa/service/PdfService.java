@@ -72,11 +72,11 @@ public class PdfService {
             fields.get("fill_4").setValue(resume.getHometown()).setFont(font);
             fields.get("fill_5").setValue(resume.getBirthday()).setFont(font);
             fields.get("fill_6").setValue(resume.getEmail()).setFont(font);
-            fields.get("fill_7").setValue(resume.getEducation()).setFont(font);
+            fields.get("fill_7").setValue(resume.getQualification()).setFont(font);
             fields.get("fill_8").setValue(resume.getMajor()).setFont(font);
             fields.get("fill_9").setValue(resume.getSchool()).setFont(font);
             fields.get("fill_10").setValue(resume.getOccupation()).setFont(font);
-            fields.get("fill_11").setValue(resume.getCoures()).setFont(font);
+            fields.get("fill_11").setValue(resume.getMajor()).setFont(font);
             fields.get("fill_12").setValue(resume.getExperience()).setFont(font);
 
 

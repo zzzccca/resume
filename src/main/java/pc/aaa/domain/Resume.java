@@ -22,28 +22,18 @@ public class Resume extends BaseEntity implements Serializable{
     private String hometown;//籍贯
     private String birthday;//出生日期
     private String email;//邮箱
-    private String education;//学历
+    private String qualification;//学历
     private String major;//专业
     private String school;//毕业院校
     private String occupation;//求职意向
-    private String coures;//专业课程
     private String experience;//工作经历
     private String template;//简历模板
     private String portraiturl;//头像
     private String templeteimgurl;//模板图片
-    private String qualification;//学历
     private String experiencetime;//工作经验
     private String interest;//兴趣爱好
     private String introduce;//个人评价
 
-
-    public String getQualification() {
-        return qualification;
-    }
-
-    public void setQualification(String qualification) {
-        this.qualification = qualification;
-    }
 
     public String getExperiencetime() {
         return experiencetime;
@@ -151,12 +141,12 @@ public class Resume extends BaseEntity implements Serializable{
         this.email = email;
     }
 
-    public String getEducation() {
-        return education;
+    public String getQualification() {
+        return qualification;
     }
 
-    public void setEducation(String education) {
-        this.education = education;
+    public void setQualification(String qualification) {
+        this.qualification = qualification;
     }
 
     public String getMajor() {
@@ -181,14 +171,6 @@ public class Resume extends BaseEntity implements Serializable{
 
     public void setOccupation(String occupation) {
         this.occupation = occupation;
-    }
-
-    public String getCoures() {
-        return coures;
-    }
-
-    public void setCoures(String coures) {
-        this.coures = coures;
     }
 
     public String getExperience() {
