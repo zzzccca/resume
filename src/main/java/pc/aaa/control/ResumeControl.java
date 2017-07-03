@@ -1,6 +1,8 @@
 package pc.aaa.control;
 
+import org.apache.poi.util.StringUtil;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -71,11 +73,16 @@ public class ResumeControl {
 
     @RequestMapping("/resume/userall")
     public List<Resume> userall(String userid){
+        if (StringUtils.hasText(userid)){
         return this.resumeService.userall(userid);
+        }else
+            return null;
     }
 
     @RequestMapping("/resume/resumeone")
-    public Resume resumeone(String resumeid){return this.resumeService.userresume(resumeid);}
+    public Resume resumeone(String resumeid){
+        return this.resumeService.userresume(resumeid);
+    }
 
     @RequestMapping("/resume/del")
     public ErrorCode resumedel(String resumeid){
