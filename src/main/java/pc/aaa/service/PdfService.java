@@ -1,8 +1,6 @@
 package pc.aaa.service;
 
 import com.google.gson.Gson;
-
-
 import com.itextpdf.forms.PdfAcroForm;
 import com.itextpdf.forms.fields.PdfFormField;
 import com.itextpdf.kernel.font.PdfFont;
@@ -17,16 +15,18 @@ import com.qiniu.storage.Configuration;
 import com.qiniu.storage.UploadManager;
 import com.qiniu.storage.model.DefaultPutRet;
 import com.qiniu.util.Auth;
+import org.apache.pdfbox.pdmodel.PDDocument;
+import org.apache.pdfbox.rendering.PDFRenderer;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.util.ResourceUtils;
-
 import pc.aaa.domain.Pdf;
 import pc.aaa.domain.Resume;
 import pc.aaa.repo.PdfRepository;
 
+import javax.imageio.ImageIO;
+import java.awt.image.BufferedImage;
 import java.io.*;
-
 import java.util.List;
 import java.util.Map;
 
@@ -43,6 +43,9 @@ public class PdfService {
     @Autowired
     private PdfRepository pdfRepository;
 
+    @Autowired
+    private UseIdGenerate useIdGenerate;
+
     public List<Pdf> templastall(String resumeid){
         return this.pdfRepository.findByResumeid(resumeid);
     }
@@ -56,10 +59,9 @@ public class PdfService {
 
             FileInputStream tempFileInputStream = new FileInputStream(ResourceUtils.getFile("classpath:"+str[i]));
 
-            //Initialize PDF document
-            ByteArrayOutputStream bao = new ByteArrayOutputStream();
-            PdfWriter writer = new PdfWriter(bao);
-            PdfDocument pdf = new PdfDocument(new PdfReader(tempFileInputStream), writer);
+            String pdfname=this.useIdGenerate.createid("pdf");
+            String newpdf="./pdf/"+pdfname+".pdf";
+            PdfDocument pdf = new PdfDocument(new PdfReader(tempFileInputStream), new PdfWriter(newpdf));
 
             //处理中文问题
             PdfFont font = PdfFontFactory.createFont("STSongStd-Light", "UniGB-UCS2-H", false);
@@ -82,18 +84,33 @@ public class PdfService {
 
             pdf.close();
 
+            File file = new File(newpdf);
+            ByteArrayOutputStream bao = new ByteArrayOutputStream();
+    try {
+        PDDocument doc = PDDocument.load(file);
+        PDFRenderer renderer = new PDFRenderer(doc);
+     int pageCount = doc.getNumberOfPages();
+        for(int o =0;o<pageCount;o++){
+            BufferedImage image = renderer.renderImageWithDPI(o, 296);
+//          BufferedImage image = renderer.renderImage(i, 2.5f);
+            ImageIO.write(image, "PNG", bao);
+        }
+    } catch (IOException e) {
+        e.printStackTrace();
+    }
+
+
 
             //构造一个带指定Zone对象的配置类
             Configuration cfg = new Configuration(Zone.zone2());
-//...其他参数参考类注释
+            //...其他参数参考类注释
             UploadManager uploadManager = new UploadManager(cfg);
-//...生成上传凭证，然后准备上传
+            //...生成上传凭证，然后准备上传
             String ACCESS_KEY = "RMVns76oWlTpTDTSADE9F8_Lx7lmpCm6VkbgtNs-";
             String SECRET_KEY = "iph1fxlYUYktFSaI_1jnt6DgJMIKWZKcH2zSBV5h";
             String bucketname = "resume";
-//默认不指定key的情况下，以文件内容的hash值作为文件名
+            //默认不指定key的情况下，以文件内容的hash值作为文件名
             String key = null;
-//        try {
             byte[] uploadBytes = bao.toByteArray();//.getBytes("utf-8");
             Auth auth = Auth.create(ACCESS_KEY, SECRET_KEY);
             String upToken = auth.uploadToken(bucketname);
@@ -103,7 +120,7 @@ public class PdfService {
                 DefaultPutRet putRet = new Gson().fromJson(response.bodyString(), DefaultPutRet.class);
                 Pdf a=new Pdf();
                 a.setQiniuname(putRet.key);
-                a.setTemplate(str[i].toString());
+                a.setTemplate("经典板式");
                 a.setResumeid(resumeid);
                 this.pdfRepository.save(a);
 //                System.out.println(putRet.key);

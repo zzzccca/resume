@@ -5,7 +5,6 @@ import com.tim.bos.Bostype;
 
 import javax.persistence.Entity;
 import javax.persistence.Table;
-import java.awt.print.PrinterGraphics;
 import java.io.Serializable;
 
 /**
