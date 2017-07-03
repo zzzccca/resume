@@ -29,12 +29,9 @@ public class UseIdGenerate {
         //System.out.println(uid);
         StringBuilder sb = new StringBuilder();
         for (int i = 0; i < 10; i++) {
-            int a = Integer.valueOf(uid.substring(3 * i, 3 * i + 1), 16)
-                    .intValue();
-            int b = Integer.valueOf(uid.substring(3 * i + 1, 3 * i + 2), 16)
-                    .intValue();
-            int c = Integer.valueOf(uid.substring(3 * i + 2, 3 * i + 3), 16)
-                    .intValue();
+            int a = Integer.valueOf(uid.substring(3 * i, 3 * i + 1), 16).intValue();
+            int b = Integer.valueOf(uid.substring(3 * i + 1, 3 * i + 2), 16).intValue();
+            int c = Integer.valueOf(uid.substring(3 * i + 2, 3 * i + 3), 16).intValue();
 
             int m = ((a << 2) & 0x3c) + ((b >> 2) & 0x03);
             int n = ((b << 4) & 0x30) + (c & 0x0f);

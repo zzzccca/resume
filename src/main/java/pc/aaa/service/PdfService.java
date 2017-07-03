@@ -84,6 +84,7 @@ public class PdfService {
 
             pdf.close();
 
+
             File file = new File(newpdf);
             ByteArrayOutputStream bao = new ByteArrayOutputStream();
     try {
@@ -110,7 +111,7 @@ public class PdfService {
             String SECRET_KEY = "iph1fxlYUYktFSaI_1jnt6DgJMIKWZKcH2zSBV5h";
             String bucketname = "resume";
             //默认不指定key的情况下，以文件内容的hash值作为文件名
-            String key = null;
+            String key = this.useIdGenerate.createid("niu");
             byte[] uploadBytes = bao.toByteArray();//.getBytes("utf-8");
             Auth auth = Auth.create(ACCESS_KEY, SECRET_KEY);
             String upToken = auth.uploadToken(bucketname);
