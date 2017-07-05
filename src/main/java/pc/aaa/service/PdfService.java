@@ -66,6 +66,7 @@ public class PdfService {
             //处理中文问题
             PdfFont font = PdfFontFactory.createFont("STSongStd-Light", "UniGB-UCS2-H", false);
 
+
             PdfAcroForm form = PdfAcroForm.getAcroForm(pdf, true);
             Map<String, PdfFormField> fields = form.getFormFields();
             fields.get("fill_1").setValue(resume.getName()).setFont(font);
