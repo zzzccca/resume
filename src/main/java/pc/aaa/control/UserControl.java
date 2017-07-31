@@ -60,7 +60,7 @@ public class UserControl {
         }
         Map map =new HashMap();
         map.put("errorcode",'0');
-        map.put("errorinfo",u.getId());
+        map.put("errorinfo",userInfoJSON.get("openId").toString());
         return map;
     }
 }
