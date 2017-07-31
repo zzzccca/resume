@@ -35,7 +35,7 @@ public class UserControl {
             return ErrorCode.CONTENTNULL;
         }
 
-        String a =(String) this.weixinidService.decodeUserInfo(encryptedData,iv,code);
+        Object a = this.weixinidService.decodeUserInfo(encryptedData,iv,code);
         JSONObject userInfoJSON = JSONObject.fromObject(a);
 
         User u=this.userService.openid(userInfoJSON.get("openId").toString());
@@ -47,15 +47,13 @@ public class UserControl {
         }else {
             User user = new User();
             user.setOpenid(userInfoJSON.get("openId").toString());
+            user.setUnionid(userInfoJSON.get("unionId").toString());
             user.setNickname(userInfoJSON.get("nickName").toString());
             user.setAvatarurl(userInfoJSON.get("avatarUrl").toString());
             user.setGender(userInfoJSON.get("gender").toString());
             user.setProvince(userInfoJSON.get("province").toString());
             user.setCity(userInfoJSON.get("city").toString());
             user.setCountry(userInfoJSON.get("country").toString());
-//            if (userInfoJSON.get("unionid") != null) {
-                user.setUnionid(userInfoJSON.get("unionId").toString());
-//            }
             this.userService.useradd(user);
         }
         Map map =new HashMap();
