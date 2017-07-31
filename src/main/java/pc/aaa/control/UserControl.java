@@ -53,9 +53,9 @@ public class UserControl {
             user.setProvince(userInfoJSON.get("province").toString());
             user.setCity(userInfoJSON.get("city").toString());
             user.setCountry(userInfoJSON.get("country").toString());
-            if (userInfoJSON.get("unionid") != null) {
+//            if (userInfoJSON.get("unionid") != null) {
                 user.setUnionid(userInfoJSON.get("unionId").toString());
-            }
+//            }
             this.userService.useradd(user);
         }
         Map map =new HashMap();
