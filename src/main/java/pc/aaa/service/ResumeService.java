@@ -45,6 +45,12 @@ public class ResumeService {
         return resumeRepository.save(a);
     }
 
+    public Resume resumeupportraiturl(String resumeid,String portraiturl){
+        Resume a=this.resumeRepository.findById(resumeid);
+        a.setPortraiturl(portraiturl);
+        return resumeRepository.save(a);
+    }
+
     public List<Resume> userall(String userid){
         return this.resumeRepository.findByUseridOrderByCreatetimeDesc(userid);
     }

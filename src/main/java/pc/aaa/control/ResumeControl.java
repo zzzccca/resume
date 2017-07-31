@@ -1,6 +1,6 @@
 package pc.aaa.control;
 
-import org.apache.poi.util.StringUtil;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -68,6 +68,12 @@ public class ResumeControl {
 
         this.resumeService.resumeupdate(resumeid,name,tel, gender, hometown,birthday, email, major, school,
                 occupation, experience, template,portraiturl,templeteimgurl,qualification, experiencetime,interest,introduce);
+        return ErrorCode.SUCCESS;
+    }
+
+    @RequestMapping("resume/upportraiturl")
+    public ErrorCode resumeupportraiturl(String resumeid,String portraiturl){
+        this.resumeService.resumeupportraiturl(resumeid,portraiturl);
         return ErrorCode.SUCCESS;
     }
 
