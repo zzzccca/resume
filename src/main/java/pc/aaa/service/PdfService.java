@@ -53,11 +53,26 @@ public class PdfService {
     public void testExportWord2(String resumeid) throws Exception {
 
         Resume resume = this.resumeService.userresume(resumeid);
-        String str[] = {"jdbs.pdf"};
+        String str[] = {"jdbs.pdf","bgbs.pdf","dqbs.pdf","jjbs.pdf","qxbs.pdf","srbs.pdf"};
         int i = 0;
+
         while (i < 1) {
+        String temp="经典板式";
 
             FileInputStream tempFileInputStream = new FileInputStream(ResourceUtils.getFile("classpath:"+str[i]));
+            if (str[i]=="jdbs.pdf"){
+                 temp="经典板式";
+            }else if (str[i]=="bgbs.pdf"){
+                 temp="表格板式";
+            }else if (str[i]=="dqbs.pdf"){
+                 temp="大气板式";
+            }else if (str[i]=="jjbs.pdf"){
+                 temp="极简板式";
+            }else if (str[i]=="qxbs.pdf"){
+                 temp="清新板式";
+            }else if (str[i]=="srbs.pdf"){
+                 temp="素雅板式";
+            }
 
             String pdfname=this.useIdGenerate.createid("pdf");
             String newpdf="./pdf/"+pdfname+".pdf";
@@ -82,7 +97,7 @@ public class PdfService {
             fields.get("fill_11").setValue(resume.getMajor()).setFont(font);
             fields.get("fill_12").setValue(resume.getExperience()).setFont(font);
 
-
+            tempFileInputStream.close();
             pdf.close();
 
 
@@ -97,6 +112,7 @@ public class PdfService {
 //          BufferedImage image = renderer.renderImage(i, 2.5f);
             ImageIO.write(image, "PNG", bao);
         }
+        doc.close();
     } catch (IOException e) {
         e.printStackTrace();
     }
@@ -121,8 +137,8 @@ public class PdfService {
                 //解析上传成功的结果
                 DefaultPutRet putRet = new Gson().fromJson(response.bodyString(), DefaultPutRet.class);
                 Pdf a=new Pdf();
-                a.setQiniuname(putRet.key);
-                a.setTemplate("经典板式");//TODO 多模板时要改成动态
+                a.setQiniuname("http://orzajferg.bkt.clouddn.com/"+putRet.key);
+                a.setTemplate(temp);
                 a.setResumeid(resumeid);
                 this.pdfRepository.save(a);
 //                System.out.println(putRet.key);
@@ -166,6 +182,7 @@ public class PdfService {
             fields.get("fill_11").setValue(resume.getMajor()).setFont(font);
             fields.get("fill_12").setValue(resume.getExperience()).setFont(font);
 
+            tempFileInputStream.close();
             pdf.close();
 
             File file = new File(newpdf);
@@ -179,6 +196,7 @@ public class PdfService {
 //          BufferedImage image = renderer.renderImage(i, 2.5f);
                     ImageIO.write(image, "PNG", bao);
                 }
+                doc.close();
             } catch (IOException e) {
                 e.printStackTrace();
             }
