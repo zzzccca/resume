@@ -53,7 +53,7 @@ public class PdfService {
     public void testExportWord2(String resumeid) throws Exception {
 
         Resume resume = this.resumeService.userresume(resumeid);
-        String str[] = {"aaa.pdf"};
+        String str[] = {"jdbs.pdf"};
         int i = 0;
         while (i < 1) {
 
@@ -122,7 +122,7 @@ public class PdfService {
                 DefaultPutRet putRet = new Gson().fromJson(response.bodyString(), DefaultPutRet.class);
                 Pdf a=new Pdf();
                 a.setQiniuname(putRet.key);
-                a.setTemplate("经典板式");
+                a.setTemplate("经典板式");//TODO 多模板时要改成动态
                 a.setResumeid(resumeid);
                 this.pdfRepository.save(a);
 //                System.out.println(putRet.key);
@@ -138,5 +138,79 @@ public class PdfService {
             i++;
         }
     }
+
+    public void testExportWord(String resumeid,String templeteimgurl,String template) throws Exception {
+
+        Resume resume = this.resumeService.userresume(resumeid);
+
+            FileInputStream tempFileInputStream = new FileInputStream(ResourceUtils.getFile("classpath:"+templeteimgurl+".pdf"));
+            String pdfname=this.useIdGenerate.createid("pdf");
+            String newpdf="./pdf/"+pdfname+".pdf";
+            PdfDocument pdf = new PdfDocument(new PdfReader(tempFileInputStream), new PdfWriter(newpdf));
+
+            //处理中文问题
+            PdfFont font = PdfFontFactory.createFont("STSongStd-Light", "UniGB-UCS2-H", false);
+
+            PdfAcroForm form = PdfAcroForm.getAcroForm(pdf, true);
+            Map<String, PdfFormField> fields = form.getFormFields();
+            fields.get("fill_1").setValue(resume.getName()).setFont(font);
+            fields.get("fill_2").setValue(resume.getTel()).setFont(font);
+            fields.get("fill_3").setValue(resume.getGender()).setFont(font);
+            fields.get("fill_4").setValue(resume.getHometown()).setFont(font);
+            fields.get("fill_5").setValue(resume.getBirthday()).setFont(font);
+            fields.get("fill_6").setValue(resume.getEmail()).setFont(font);
+            fields.get("fill_7").setValue(resume.getQualification()).setFont(font);
+            fields.get("fill_8").setValue(resume.getMajor()).setFont(font);
+            fields.get("fill_9").setValue(resume.getSchool()).setFont(font);
+            fields.get("fill_10").setValue(resume.getOccupation()).setFont(font);
+            fields.get("fill_11").setValue(resume.getMajor()).setFont(font);
+            fields.get("fill_12").setValue(resume.getExperience()).setFont(font);
+
+            pdf.close();
+
+            File file = new File(newpdf);
+            ByteArrayOutputStream bao = new ByteArrayOutputStream();
+            try {
+                PDDocument doc = PDDocument.load(file);
+                PDFRenderer renderer = new PDFRenderer(doc);
+                int pageCount = doc.getNumberOfPages();
+                for(int o =0;o<pageCount;o++){
+                    BufferedImage image = renderer.renderImageWithDPI(o, 296);
+//          BufferedImage image = renderer.renderImage(i, 2.5f);
+                    ImageIO.write(image, "PNG", bao);
+                }
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+
+            //构造一个带指定Zone对象的配置类
+            Configuration cfg = new Configuration(Zone.zone2());
+            //...其他参数参考类注释
+            UploadManager uploadManager = new UploadManager(cfg);
+            //...生成上传凭证，然后准备上传
+            String ACCESS_KEY = "RMVns76oWlTpTDTSADE9F8_Lx7lmpCm6VkbgtNs-";
+            String SECRET_KEY = "iph1fxlYUYktFSaI_1jnt6DgJMIKWZKcH2zSBV5h";
+            String bucketname = "resume";
+            //默认不指定key的情况下，以文件内容的hash值作为文件名
+            String key = this.useIdGenerate.createid("niu");
+            byte[] uploadBytes = bao.toByteArray();//.getBytes("utf-8");
+            Auth auth = Auth.create(ACCESS_KEY, SECRET_KEY);
+            String upToken = auth.uploadToken(bucketname);
+            try {
+                Response response = uploadManager.put(uploadBytes, key, upToken);
+                //解析上传成功的结果
+                DefaultPutRet putRet = new Gson().fromJson(response.bodyString(), DefaultPutRet.class);
+                resumeService.uptemplete(resumeid,putRet.key,template);
+            } catch (QiniuException ex) {
+                Response r = ex.response;
+                System.err.println(r.toString());
+                try {
+                    System.err.println(r.bodyString());
+                } catch (QiniuException ex2) {
+                    //ignore
+                }
+            }
+        }
+
 
 }

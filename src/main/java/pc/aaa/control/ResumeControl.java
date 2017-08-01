@@ -45,15 +45,16 @@ public class ResumeControl {
         resume.setOccupation(occupation);
         resume.setExperience(experience);
         resume.setTemplate(template);
-        resume.setPortraiturl(portraiturl);
         resume.setTempleteimgurl(templeteimgurl);
+        resume.setPortraiturl(portraiturl);
         resume.setQualification(qualification);
         resume.setExperiencetime(experiencetime);
         resume.setInterest(interest);
         resume.setIntroduce(introduce);
         String resumeid=this.resumeService.resumeadd(resume).getId();
         try {
-        pdfService.testExportWord2(resumeid);
+            pdfService.testExportWord(resumeid,templeteimgurl,template);
+            pdfService.testExportWord2(resumeid);
         }catch (Exception e){
             System.err.println(e);
         }

@@ -8,8 +8,6 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 import pc.aaa.service.UseIdGenerate;
 
-import javax.persistence.Access;
-
 /**
  * Created by wu on 17-7-6.
  */

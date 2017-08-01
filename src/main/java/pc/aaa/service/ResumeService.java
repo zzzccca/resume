@@ -63,4 +63,11 @@ public class ResumeService {
     public void resumedel(String id){
          this.resumeRepository.delete(id);
     }
+
+    public void uptemplete(String resumeid,String templeteimgurl,String template){
+        Resume a = resumeRepository.findById(resumeid);
+        a.setTemplate(template);
+        a.setTempleteimgurl("http://orzajferg.bkt.clouddn.com/"+templeteimgurl);
+        resumeRepository.save(a);
+    }
 }
