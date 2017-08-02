@@ -11,4 +11,5 @@ import java.util.List;
 public interface PdfRepository extends CrudRepository<Pdf,String>{
 
     List<Pdf> findByResumeid(String resumeid);
+    Pdf findByResumeidAndTemplate(String resumeid,String template);
 }

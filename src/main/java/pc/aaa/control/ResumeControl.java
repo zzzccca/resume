@@ -53,8 +53,8 @@ public class ResumeControl {
         resume.setIntroduce(introduce);
         String resumeid=this.resumeService.resumeadd(resume).getId();
         try {
-            pdfService.testExportWord(resumeid,templeteimgurl,template);
             pdfService.testExportWord2(resumeid);
+            pdfService.testExportWord(resumeid,template);
         }catch (Exception e){
             System.err.println(e);
         }
@@ -69,6 +69,15 @@ public class ResumeControl {
 
         this.resumeService.resumeupdate(resumeid,name,tel, gender, hometown,birthday, email, major, school,
                 occupation, experience, template,portraiturl,templeteimgurl,qualification, experiencetime,interest,introduce);
+        return ErrorCode.SUCCESS;
+    }
+    @RequestMapping("resume/uptemplate")
+    public ErrorCode resumeuptemplate(String resumeid,String template){
+        try {
+            pdfService.testExportWord(resumeid,template);
+        }catch (Exception e){
+            System.err.println(e);
+        }
         return ErrorCode.SUCCESS;
     }
 

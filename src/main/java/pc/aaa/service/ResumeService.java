@@ -67,7 +67,8 @@ public class ResumeService {
     public void uptemplete(String resumeid,String templeteimgurl,String template){
         Resume a = resumeRepository.findById(resumeid);
         a.setTemplate(template);
-        a.setTempleteimgurl("http://orzajferg.bkt.clouddn.com/"+templeteimgurl);
+        a.setTempleteimgurl(templeteimgurl);
+//        a.setTempleteimgurl("http://orzajferg.bkt.clouddn.com/"+templeteimgurl);
         resumeRepository.save(a);
     }
 }
