@@ -1,11 +1,17 @@
 package pc.aaa.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import pc.aaa.domain.Resume;
+import pc.aaa.domain.enums.ErrorCode;
 import pc.aaa.repo.ResumeRepository;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 /**
  * Created by wu on 17-6-21.
@@ -53,6 +59,24 @@ public class ResumeService {
 
     public List<Resume> userall(String userid){
         return this.resumeRepository.findByUseridOrderByCreatetimeDesc(userid);
+    }
+
+    public Object resumeall(int page,int row){
+        try {
+        Pageable pageable=new PageRequest(page-1,row);
+        Page<Resume> list=this.resumeRepository.findAll(pageable);
+        if (page>list.getTotalPages()){
+            return ErrorCode.Lastpage;
+        }else {
+            Map map=new HashMap();
+            map.put("total",list.getTotalElements());//数据总数
+            map.put("totalpage",list.getTotalPages());//总页数
+            map.put("rows",list.getContent());//分页应该显示的数据
+            return map;
+             }
+        }catch (IllegalArgumentException e){
+            return ErrorCode.Firstpage;
+        }
     }
 
 

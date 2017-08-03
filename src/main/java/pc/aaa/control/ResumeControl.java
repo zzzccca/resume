@@ -1,7 +1,9 @@
 package pc.aaa.control;
 
 
+import org.bouncycastle.jcajce.provider.symmetric.IDEA;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
 import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -93,6 +95,11 @@ public class ResumeControl {
         return this.resumeService.userall(userid);
         }else
             return null;
+    }
+
+    @RequestMapping("/resume/all")
+    public Object resumeall(int page,int row){
+        return this.resumeService.resumeall(page,row);
     }
 
     @RequestMapping("/resume/resumeone")
