@@ -98,8 +98,8 @@ public class ResumeControl {
     }
 
     @RequestMapping("/resume/all")
-    public Object resumeall(int page,int row){
-        return this.resumeService.resumeall(page,row);
+    public Object resumeall(int page,int row,String name){
+        return this.resumeService.resumeall(page,row,name);
     }
 
     @RequestMapping("/resume/resumeone")

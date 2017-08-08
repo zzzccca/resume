@@ -19,4 +19,6 @@ public interface ResumeRepository extends CrudRepository<Resume,String>{
     Resume findById(String id);
 
     Page<Resume> findAll(Pageable pageable);
+
+    Page<Resume> findByNameLike(Pageable pageable,String name);
 }

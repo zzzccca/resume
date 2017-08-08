@@ -1,5 +1,6 @@
 package pc.aaa.service;
 
+import org.springframework.util.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -61,10 +62,13 @@ public class ResumeService {
         return this.resumeRepository.findByUseridOrderByCreatetimeDesc(userid);
     }
 
-    public Object resumeall(int page,int row){
-        try {
+    public Object resumeall(int page,int row,String name){
         Pageable pageable=new PageRequest(page-1,row);
         Page<Resume> list=this.resumeRepository.findAll(pageable);
+        try {
+            if (StringUtils.hasText(name)){
+                list=this.resumeRepository.findByNameLike(pageable,name);
+            }
         if (page>list.getTotalPages()){
             return ErrorCode.Lastpage;
         }else {
